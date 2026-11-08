@@ -9,8 +9,16 @@ const connectDB = async () => {
   // Candidate connection strings in priority order
   const candidates = [];
 
-  if (process.env.MONGO_URI) {
-    candidates.push(process.env.MONGO_URI);
+  const configuredUri = process.env.MONGO_URI
+    ?.trim()
+    .replace(/^MONGO_URI\s*=\s*/, '')
+    .replace(/^['"]|['"]$/g, '');
+
+  if (configuredUri) {
+    if (!/^mongodb(?:\+srv)?:\/\//.test(configuredUri)) {
+      throw new Error('MONGO_URI must start with mongodb:// or mongodb+srv://');
+    }
+    candidates.push(configuredUri);
   }
 
   if (process.env.NODE_ENV !== 'production') {
