@@ -1,26 +1,16 @@
 {
   "name": "smartcampus-ai",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "SmartCampus AI - College Campus Management Platform with AI Integration",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "build": "npm --prefix frontend run build",
+    "test:models": "node backend/scripts/testModels.js",
+    "test": "npm run build && npm run test:models",
+    "backend": "npm --prefix backend run dev",
+    "frontend": "npm --prefix frontend run dev",
+    "seed": "npm --prefix backend run seed"
   },
-  "dependencies": {
-    "next": "16.4.5",
-    "react": "19.3.0",
-    "react-dom": "19.3.0"
-  },
-  "devDependencies": {
-    "@tailwindcss/turbopack": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.4.5",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+  "keywords": ["smart-campus", "mern", "ai", "btech-project"],
+  "author": "SmartCampus AI Team",
+  "license": "ISC"
 }
