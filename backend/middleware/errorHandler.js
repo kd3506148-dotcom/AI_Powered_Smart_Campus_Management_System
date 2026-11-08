@@ -7,10 +7,14 @@ const errorHandler = (err, req, res, next) => {
   let error = { ...err };
   error.message = err.message;
 
-  // Log error in development for debugging
-  if (process.env.NODE_ENV !== 'production') {
-    console.error('❌ [Error Handler]:', err);
-  }
+  // Keep diagnostics in server logs without exposing internal details to clients.
+  console.error('❌ [Error Handler]:', {
+    method: req.method,
+    path: req.originalUrl,
+    name: err.name,
+    message: err.message,
+    stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+  });
 
   // 1. Mongoose bad ObjectId (CastError)
   if (err.name === 'CastError') {
